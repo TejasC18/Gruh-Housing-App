@@ -6,4 +6,5 @@ public interface SocietyAdminService {
 
 	public SocietyAdminDTO societyAdminLogin(int adminId, String password);
 	public String generateNewToken();
+	public String addSocietyAdmin(SocietyAdminDTO objSocietyAdmin);
 }

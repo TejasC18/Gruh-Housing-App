@@ -4,6 +4,7 @@ import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,4 +52,12 @@ public class SocietyMemberServiceImpl implements SocietyMemberService {
         }
         return null;
     }
+	
+	@Override
+	public String addSocietyMember(SocietyMemberDataDTO objSocietyMember) {
+		SocietyMemberData societyMemberEntity = new SocietyMemberData();
+        BeanUtils.copyProperties(objSocietyMember,societyMemberEntity);
+        societyMemberRepository.save(societyMemberEntity);
+        return "Success";
+	}
 }

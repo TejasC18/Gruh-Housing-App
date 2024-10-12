@@ -4,6 +4,7 @@ import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,4 +49,12 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+	
+	@Override
+	public String addUser(UserDataDTO objUser) {
+		UserData userEntity = new UserData();
+        BeanUtils.copyProperties(objUser,userEntity);
+        userRepository.save(userEntity);
+        return "Success";
+	}
 }

@@ -1,11 +1,15 @@
 package com.gruh.controllers;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gruh.dao.GruhAdmins;
+import com.gruh.dao.SocietyAdmin;
+import com.gruh.dao.UserData;
 import com.gruh.dto.AdminLoginResponse;
 import com.gruh.dto.GruhAdminsDTO;
 import com.gruh.dto.RequestBodyObject;
@@ -79,5 +83,45 @@ public class LoginController {
 		{
 			return null;
 		}
+	}
+	
+	@PostMapping("/registerAdmin")//www.localhost:8080/login/registerAdmin
+	public boolean registerAdmin(@RequestBody GruhAdmins objAdmin) {
+		GruhAdminsDTO adminEntity = new GruhAdminsDTO();
+		BeanUtils.copyProperties(objAdmin, adminEntity);
+		if(adminService.addAdmin(adminEntity).equalsIgnoreCase("success")) {
+			return true;
+		}
+		return false;
+	}
+	
+	@PostMapping("/registerSocietyMember")//www.localhost:8080/login/registerSocietyMember
+	public boolean registerSocietyMember(@RequestBody SocietyMemberDataDTO objSocietyMember) {
+		SocietyMemberDataDTO societyMemberEntity = new SocietyMemberDataDTO();
+		BeanUtils.copyProperties(objSocietyMember,societyMemberEntity);
+		if(societyMemberService.addSocietyMember(societyMemberEntity).equalsIgnoreCase("success")) {
+			return true;
+		}
+		return false;
+	}
+	
+	@PostMapping("/registerUser")//www.localhost:8080/login/registerUser
+	public boolean registerUser(@RequestBody UserData objUser) {
+		UserDataDTO userEntity = new UserDataDTO();
+		BeanUtils.copyProperties(objUser, userEntity);
+		if(userService.addUser(userEntity).equalsIgnoreCase("success")) {
+			return true;
+		}
+		return false;
+	}
+	
+	@PostMapping("/registerSocietyAdmin")//www.localhost:8080/login/registerSocietyAdmin
+	public boolean registerSocietyAdmin(@RequestBody SocietyAdmin objSocietyAdmin) {
+		SocietyAdminDTO societyAdminEntity = new SocietyAdminDTO();
+		BeanUtils.copyProperties(objSocietyAdmin, societyAdminEntity);
+		if(societyAdminService.addSocietyAdmin(societyAdminEntity).equalsIgnoreCase("success")) {
+			return true;
+		}
+		return false;
 	}
 }

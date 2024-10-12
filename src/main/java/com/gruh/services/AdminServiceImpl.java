@@ -4,6 +4,7 @@ import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,4 +50,11 @@ public class AdminServiceImpl implements AdminService {
         return null;
     }
 	
+	@Override
+	public String addAdmin(GruhAdminsDTO objAdmin) {
+		GruhAdmins adminEntity = new GruhAdmins();
+        BeanUtils.copyProperties(objAdmin,adminEntity);
+        adminRepository.save(adminEntity);
+        return "Success";
+	}
 }
